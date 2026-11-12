@@ -10,7 +10,8 @@ const app = Vue.createApp({
             id:0,
             title:'',
             artist:'',
-            publishedYear:0
+            publishedYear:0,
+            showRecords: true
         }
     },
     methods: {
