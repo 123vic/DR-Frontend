@@ -1,36 +1,23 @@
 const app = Vue.createApp({
     data() {
         return {
-            intro: 'Welcome to my Vue template with components',
-            books: [
-                { id: 1, title: "The Lord of the Rings", author: "J.R.R. Tolkien", published: 1954 },
-                { id: 2, title: "The Hobbit", author: "J.R.R. Tolkien", published: 1937 },
-                { id: 3, title: "Harry Potter and the Sorcerer's Stone", author: "J.K. Rowling", published: 1997 }
+            intro: 'Danmarks Radio',
+            records: [
+                   { id: 1, title: 'Blinding Lights', artist: 'The Weeknd', publishedYear: 2019 },
+                   { id: 2, title: 'Shape of You', artist: 'Ed Sheeran', publishedYear: 2017 },
+                   { id: 3, title: 'Bad Guy', artist: 'Billie Eilish', publishedYear: 2019 }
             ],
             id:0,
             title:'',
-            author:'',
-            published:0,
-            showBooksList: false
-            
+            artist:'',
+            publishedYear:0
         }
     },
     methods: {
         myMethod(){
 
         },
-        AddBook(){
-            this.books.push({
-                id: this.id,
-                title: this.title,
-                author: this.author,
-                published: this.published
-            });
-            this.id = 0;
-            this.title = '';
-            this.author = '';
-            this.published = 0;
-        },
+
     },
     computed: {
         myComputed() {
