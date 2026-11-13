@@ -1,36 +1,33 @@
 const app = Vue.createApp({
     data() {
         return {
-            intro: 'Welcome to my Vue template with components',
-            books: [
-                { id: 1, title: "The Lord of the Rings", author: "J.R.R. Tolkien", published: 1954 },
-                { id: 2, title: "The Hobbit", author: "J.R.R. Tolkien", published: 1937 },
-                { id: 3, title: "Harry Potter and the Sorcerer's Stone", author: "J.K. Rowling", published: 1997 }
-            ],
+            intro: 'Danmarks Radio',
+            records: [ ],
             id:0,
             title:'',
-            author:'',
-            published:0,
-            showBooksList: false
-            
+            artist:'',
+            Duration:0,
+            PublicationYear:0,
+            showRecords: false
         }
     },
+    mounted() {
+    this.getAll()
+    },
     methods: {
-        myMethod(){
+        myMethod(){},
+        
+        getAll() {
+        axios.get('https://localhost:7233/api/MusicRecords')
+        .then(response => {
+            this.records = response.data
+        })
+        .catch(error => {
+            console.error('Failed to get records:', error)
+        })
+},
+        
 
-        },
-        AddBook(){
-            this.books.push({
-                id: this.id,
-                title: this.title,
-                author: this.author,
-                published: this.published
-            });
-            this.id = 0;
-            this.title = '';
-            this.author = '';
-            this.published = 0;
-        },
     },
     computed: {
         myComputed() {
