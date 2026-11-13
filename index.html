@@ -17,8 +17,13 @@
 
       <h1>{{ intro }}</h1>
 
-      <H2>Show all the records</H2>
-
+      <h2>Search Records</h2>
+      <div class="search-box">
+        <input type="text" v-model="searchTitle" placeholder="Title" />
+        <input type="text" v-model="searchArtist" placeholder="Artist" />
+        <button id="search-button" @click="searchRecords">Search</button>
+      </div>
+      <h1>_____________________________</h1>
       <h2>Records List</h2>
 
       <button id="toggle-records" @click="showRecords = !showRecords">
@@ -27,7 +32,7 @@
       <div v-show="showRecords">     
         <ul>
         <li v-for="record in records" :key="record.id">
-         {{ record.title }} by {{ record.artist }} ({{ record.publicationYear }})
+         {{ record.title }} by {{ record.artist }} ({{ record.publicationYear }}) - {{ record.duration }} sec
         </li>
         </ul> 
       </div>

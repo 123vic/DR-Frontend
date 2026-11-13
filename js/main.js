@@ -2,37 +2,40 @@ const app = Vue.createApp({
     data() {
         return {
             intro: 'Danmarks Radio',
-            records: [ ],
-            id:0,
-            title:'',
-            artist:'',
-            Duration:0,
-            PublicationYear:0,
+            records: [],
+            searchTitle: '',
+            searchArtist: '',
             showRecords: false
         }
     },
     mounted() {
-    this.getAll()
+        this.getAll()
     },
     methods: {
-        myMethod(){},
-        
         getAll() {
-        axios.get('https://localhost:7233/api/MusicRecords')
-        .then(response => {
-            this.records = response.data
-        })
-        .catch(error => {
-            console.error('Failed to get records:', error)
-        })
-},
-        
-
-    },
-    computed: {
-        myComputed() {
-            return ''
+            axios.get('https://localhost:7233/api/MusicRecords')
+                .then(response => {
+                    this.records = response.data
+                })
+                .catch(error => {
+                    console.error('Failed to get records:', error)
+                })
         },
-        
+
+        searchRecords() {
+            axios.get('https://localhost:7233/api/MusicRecords', {
+                params: {
+                    title: this.searchTitle,
+                    artist: this.searchArtist
+                }
+            })
+                .then(response => {
+                    this.records = response.data
+                })
+                .catch(error => {
+                    console.error('Failed to search records:', error)
+                })
+        },
+
     }
 })
