@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="./css/styles.css" />
     <!-- Import Vue.js -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Import axios.js -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div id="app">
@@ -19,14 +21,14 @@
 
       <h2>Records List</h2>
 
-      <button @click="showRecords = !showRecords">
+      <button id="toggle-records" @click="showRecords = !showRecords">
         {{ showRecords ? 'Hide Records' : 'Show Records' }}
       </button>
       <div v-show="showRecords">     
         <ul>
-          <li v-for ="record in records" :key="record.id">
-            {{record.title}} by {{record.artist}} ({{record.publishedYear}})
-          </li>
+        <li v-for="record in records" :key="record.id">
+         {{ record.title }} by {{ record.artist }} ({{ record.publicationYear }})
+        </li>
         </ul> 
       </div>
     </div>
