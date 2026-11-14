@@ -3,9 +3,7 @@ const app = Vue.createApp({
         return {
             intro: 'Danmarks Radio',
             records: [],
-            searchTitle: '',
-            searchArtist: '',
-            showRecords: false
+
         }
     },
     mounted() {
@@ -22,12 +20,9 @@ const app = Vue.createApp({
                 })
         },
 
-        searchRecords() {
+        searchRecords(title, artist) {
             axios.get('https://localhost:7233/api/MusicRecords', {
-                params: {
-                    title: this.searchTitle,
-                    artist: this.searchArtist
-                }
+                params: { title: title, artist: artist }
             })
                 .then(response => {
                     this.records = response.data

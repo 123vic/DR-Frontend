@@ -17,29 +17,17 @@
 
       <h1>{{ intro }}</h1>
 
-      <h2>Search Records</h2>
-      <div class="search-box">
-        <input id="search-title" type="text" v-model="searchTitle" placeholder="Title" />
-        <input id="search-artist"type="text" v-model="searchArtist" placeholder="Artist" />
-        <button id="search-button" @click="searchRecords">Search</button>
-      </div>
-      <h1>_____________________________</h1>
-      <h2>Records List</h2>
+      <search-records @search="searchRecords" ></search-records>
 
-      <button id="toggle-records" @click="showRecords = !showRecords">
-        {{ showRecords ? 'Hide Records' : 'Show Records' }}
-      </button>
-      <div v-show="showRecords">     
-        <ul>
-        <li v-for="record in records" :key="record.id">
-         {{ record.title }} by {{ record.artist }} ({{ record.publicationYear }}) - {{ record.duration }} sec
-        </li>
-        </ul> 
-      </div>
+      <hr />
+
+      <record-list :records="records"></record-list>
     </div>
 
     <!-- Import App -->
     <script src="./js/main.js"></script>
+    <script src="./components/SearchRecords.js"></script>
+    <script src="./components/RecordList.js"></script>
 
     <!-- Mount App -->
     <script>
