@@ -17,24 +17,17 @@
 
       <h1>{{ intro }}</h1>
 
-      <H2>Show all the records</H2>
+      <search-records @search="searchRecords" ></search-records>
 
-      <h2>Records List</h2>
+      <hr />
 
-      <button id="toggle-records" @click="showRecords = !showRecords">
-        {{ showRecords ? 'Hide Records' : 'Show Records' }}
-      </button>
-      <div v-show="showRecords">     
-        <ul>
-        <li v-for="record in records" :key="record.id">
-         {{ record.title }} by {{ record.artist }} ({{ record.publicationYear }})
-        </li>
-        </ul> 
-      </div>
+      <record-list :records="records"></record-list>
     </div>
 
     <!-- Import App -->
     <script src="./js/main.js"></script>
+    <script src="./components/SearchRecords.js"></script>
+    <script src="./components/RecordList.js"></script>
 
     <!-- Mount App -->
     <script>
