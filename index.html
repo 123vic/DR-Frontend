@@ -15,19 +15,22 @@
     <div id="app">
       <div class="nav-bar"></div>
 
-      <h1>{{ intro }}</h1>
+     <h1>{{ intro }}</h1>
+    
+     <login-form v-if="!userInfo" @login="onLogin"></login-form>
+     <user-bar v-else :user-info="userInfo" @logout="logout"></user-bar>
 
-      <search-records @search="searchRecords" ></search-records>
-
-      <hr />
-
-      <record-list :records="records"></record-list>
+     <search-records @search="searchRecords" ></search-records>
+     <hr />
+     <record-list :records="records"></record-list>
     </div>
 
     <!-- Import App -->
     <script src="./js/main.js"></script>
     <script src="./components/SearchRecords.js"></script>
     <script src="./components/RecordList.js"></script>
+    <script src="./components/LoginForm.js"></script>
+    <script src="./components/UserBar.js"></script>
 
     <!-- Mount App -->
     <script>
