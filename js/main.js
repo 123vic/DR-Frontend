@@ -1,9 +1,17 @@
+const tokenName = 'userInfo'
 const app = Vue.createApp({
     data() {
         return {
             intro: 'Danmarks Radio',
             records: [],
+            userInfo: null,
 
+        }
+    },
+    created() {
+       const saved = localStorage.getItem(tokenName)
+            if (saved != null) {
+            this.userInfo = JSON.parse(saved)
         }
     },
     mounted() {
@@ -31,6 +39,14 @@ const app = Vue.createApp({
                     console.error('Failed to search records:', error)
                 })
         },
+        onLogin(userInfo) {
+            this.userInfo = userInfo
+            localStorage.setItem(tokenName, JSON.stringify(userInfo))
+        },
+        logout() {
+            this.userInfo = null
+            localStorage.removeItem(tokenName)
+        }
 
     }
 })
