@@ -1,4 +1,11 @@
 const tokenName = 'userInfo'
+axios.interceptors.request.use(config => {
+    const saved = localStorage.getItem(tokenName)
+    if (saved != null) {
+        config.headers.Authorization = 'Bearer ' + JSON.parse(saved).token
+    }
+    return config
+})
 const app = Vue.createApp({
     data() {
         return {
@@ -49,7 +56,10 @@ const app = Vue.createApp({
         logout() {
             this.userInfo = null
             localStorage.removeItem(tokenName)
-        }
+        },
+        onRecordAdded(record) {
+        this.records.push(record)
+       },
 
     }
 })
