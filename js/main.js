@@ -60,6 +60,9 @@ const app = Vue.createApp({
         onRecordAdded(record) {
         this.records.push(record)
        },
+       onRecordDeleted(id) {
+       this.records = this.records.filter(record => record.id !== id)
+       }
 
     }
 })

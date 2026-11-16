@@ -24,7 +24,11 @@
      <hr />
      <search-records @search="searchRecords" ></search-records>
      <hr />
-     <record-list :records="records"></record-list>
+     <record-list
+     :records="records"
+     :is-admin="!!userInfo && userInfo.role === 'Admin'"
+     @deleted="onRecordDeleted">
+     </record-list>
     </div>
 
     <!-- Import App -->
