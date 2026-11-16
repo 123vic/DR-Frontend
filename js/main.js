@@ -14,6 +14,9 @@ const app = Vue.createApp({
             this.userInfo = JSON.parse(saved)
         }
     },
+    onRecordAdded(record) {
+    this.records.push(record)
+    },
     mounted() {
         this.getAll()
     },

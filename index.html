@@ -19,7 +19,9 @@
     
      <login-form v-if="!userInfo" @login="onLogin"></login-form>
      <user-bar v-else :user-info="userInfo" @logout="logout"></user-bar>
-
+     <hr />
+     <add-record @added="onRecordAdded"></add-record>
+     <hr />
      <search-records @search="searchRecords" ></search-records>
      <hr />
      <record-list :records="records"></record-list>
@@ -31,6 +33,7 @@
     <script src="./components/RecordList.js"></script>
     <script src="./components/LoginForm.js"></script>
     <script src="./components/UserBar.js"></script>
+    <script src="./components/AddRecord.js"></script>
 
     <!-- Mount App -->
     <script>
