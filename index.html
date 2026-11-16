@@ -21,6 +21,8 @@
      <user-bar v-else :user-info="userInfo" @logout="logout"></user-bar>
      <hr />
      <add-record @added="onRecordAdded"></add-record>
+     
+     <update-record v-if="userInfo && userInfo.role === 'Admin'" @updated="onRecordUpdated"></update-record>
      <hr />
      <search-records @search="searchRecords" ></search-records>
      <hr />
@@ -38,6 +40,7 @@
     <script src="./components/LoginForm.js"></script>
     <script src="./components/UserBar.js"></script>
     <script src="./components/AddRecord.js"></script>
+    <script src="./components/UpdateRecord.js"></script>
 
     <!-- Mount App -->
     <script>

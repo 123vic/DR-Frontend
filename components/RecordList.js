@@ -3,7 +3,7 @@ app.component('record-list', {
     records: { type: Array, required: true },
     isAdmin: { type: Boolean, default: false }
   },
-  emits: ['deleted'],
+  emits: ['deleted', 'updated'],
   data() {
     return {
       showRecords: false
