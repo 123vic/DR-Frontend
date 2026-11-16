@@ -12,6 +12,7 @@ const app = Vue.createApp({
             intro: 'Danmarks Radio',
             records: [],
             userInfo: null,
+            selectedRecord: null
 
         }
     },
@@ -20,9 +21,6 @@ const app = Vue.createApp({
             if (saved != null) {
             this.userInfo = JSON.parse(saved)
         }
-    },
-    onRecordAdded(record) {
-    this.records.push(record)
     },
     mounted() {
         this.getAll()
@@ -63,12 +61,15 @@ const app = Vue.createApp({
        onRecordDeleted(id) {
        this.records = this.records.filter(record => record.id !== id)
        },
-       onRecordUpdated(updated) {
-    const index = this.records.findIndex(record => record.id === updated.id)
-    if (index !== -1) {
+       onRecordEdit(record) {
+       this.selectedRecord = { ...record }
+       },
+      onRecordUpdated(updated) {
+      const index = this.records.findIndex(record => record.id === updated.id)
+       if (index !== -1) {
         this.records[index] = updated
-    }
-    }
+        }
+       }
 
     }
 })

@@ -1,4 +1,7 @@
 app.component('update-record', {
+  props: {
+    selected: { type: Object, default: null }
+  },
   emits: ['updated'],
   data() {
     return {
@@ -7,6 +10,17 @@ app.component('update-record', {
       artist: '',
       duration: 0,
       publicationYear: 0
+    }
+  },
+  watch: {
+    selected(record) {
+      if (record) {
+        this.id = record.id
+        this.title = record.title
+        this.artist = record.artist
+        this.duration = record.duration
+        this.publicationYear = record.publicationYear
+      }
     }
   },
   methods: {
@@ -18,7 +32,6 @@ app.component('update-record', {
         publicationYear: this.publicationYear
       })
         .then(() => {
-          console.log('Record updated:', this.id)
           this.$emit('updated', {
             id: this.id,
             title: this.title,
@@ -26,6 +39,11 @@ app.component('update-record', {
             duration: this.duration,
             publicationYear: this.publicationYear
           })
+          this.id = null
+          this.title = ''
+          this.artist = ''
+          this.duration = 0
+          this.publicationYear = 0
         })
         .catch(error => {
           console.error('Failed to update record:', error)
@@ -36,11 +54,13 @@ app.component('update-record', {
   /*html*/
   `
     <h2>Update Record</h2>
-    <input id="update-id" v-model.number="id" type="number" placeholder="Id">
-    <input id="update-title" v-model="title" placeholder="Title">
-    <input id="update-artist" v-model="artist" placeholder="Artist">
-    <input id="update-duration" v-model.number="duration" type="number" placeholder="Duration (sec)">
-    <input id="update-year" v-model.number="publicationYear" type="number" placeholder="Publication year">
-    <button id="update-button" @click="updateRecord">Update</button>
+    <p v-if="id === null">Click Edit on a record to select it</p>
+    <div v-else>
+      <input id="update-title" v-model="title" placeholder="Title">
+      <input id="update-artist" v-model="artist" placeholder="Artist">
+      <input id="update-duration" v-model.number="duration" type="number" placeholder="Duration (sec)">
+      <input id="update-year" v-model.number="publicationYear" type="number" placeholder="Publication year">
+      <button id="update-button" @click="updateRecord">Update</button>
+    </div>
   `
 })

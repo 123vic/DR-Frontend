@@ -20,16 +20,20 @@
      <login-form v-if="!userInfo" @login="onLogin"></login-form>
      <user-bar v-else :user-info="userInfo" @logout="logout"></user-bar>
      <hr />
-     <add-record @added="onRecordAdded"></add-record>
-     
-     <update-record v-if="userInfo && userInfo.role === 'Admin'" @updated="onRecordUpdated"></update-record>
+     <add-record v-if="userInfo && userInfo.role === 'Admin'" @added="onRecordAdded"></add-record>
+     <update-record
+     v-if="userInfo && userInfo.role === 'Admin'"
+     :selected="selectedRecord"
+     @updated="onRecordUpdated">
+     </update-record>
      <hr />
-     <search-records @search="searchRecords" ></search-records>
+     <search-records @search="searchRecords"></search-records>
      <hr />
      <record-list
      :records="records"
      :is-admin="!!userInfo && userInfo.role === 'Admin'"
-     @deleted="onRecordDeleted">
+     @deleted="onRecordDeleted"
+     @edit="onRecordEdit">
      </record-list>
     </div>
 

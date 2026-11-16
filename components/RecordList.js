@@ -3,7 +3,7 @@ app.component('record-list', {
     records: { type: Array, required: true },
     isAdmin: { type: Boolean, default: false }
   },
-  emits: ['deleted', 'updated'],
+  emits: ['deleted', 'edit'],
   data() {
     return {
       showRecords: false
@@ -12,8 +12,7 @@ app.component('record-list', {
   methods: {
     deleteRecord(id) {
       axios.delete('https://localhost:7233/api/MusicRecords/' + id)
-        .then(response => {
-          console.log('Record deleted:', id)
+        .then(() => {
           this.$emit('deleted', id)
         })
         .catch(error => {
@@ -32,7 +31,10 @@ app.component('record-list', {
       <ul>
         <li v-for="record in records" :key="record.id">
           {{ record.title }} by {{ record.artist }} ({{ record.publicationYear }}) - {{ record.duration }} sec
-          <button v-if="isAdmin" :id="'delete-' + record.id" @click="deleteRecord(record.id)">Delete</button>
+          <span v-if="isAdmin">
+            <button :id="'edit-' + record.id" @click="$emit('edit', record)">Edit</button>
+            <button :id="'delete-' + record.id" @click="deleteRecord(record.id)">Delete</button>
+          </span>
         </li>
       </ul>
     </div>
