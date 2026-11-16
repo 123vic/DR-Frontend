@@ -1,10 +1,18 @@
 const tokenName = 'userInfo'
+axios.interceptors.request.use(config => {
+    const saved = localStorage.getItem(tokenName)
+    if (saved != null) {
+        config.headers.Authorization = 'Bearer ' + JSON.parse(saved).token
+    }
+    return config
+})
 const app = Vue.createApp({
     data() {
         return {
             intro: 'Danmarks Radio',
             records: [],
             userInfo: null,
+            selectedRecord: null
 
         }
     },
@@ -46,7 +54,22 @@ const app = Vue.createApp({
         logout() {
             this.userInfo = null
             localStorage.removeItem(tokenName)
+        },
+        onRecordAdded(record) {
+        this.records.push(record)
+       },
+       onRecordDeleted(id) {
+       this.records = this.records.filter(record => record.id !== id)
+       },
+       onRecordEdit(record) {
+       this.selectedRecord = { ...record }
+       },
+      onRecordUpdated(updated) {
+      const index = this.records.findIndex(record => record.id === updated.id)
+       if (index !== -1) {
+        this.records[index] = updated
         }
+       }
 
     }
 })

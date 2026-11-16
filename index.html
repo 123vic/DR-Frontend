@@ -19,10 +19,22 @@
     
      <login-form v-if="!userInfo" @login="onLogin"></login-form>
      <user-bar v-else :user-info="userInfo" @logout="logout"></user-bar>
-
-     <search-records @search="searchRecords" ></search-records>
      <hr />
-     <record-list :records="records"></record-list>
+     <add-record v-if="userInfo && userInfo.role === 'Admin'" @added="onRecordAdded"></add-record>
+     <update-record
+     v-if="userInfo && userInfo.role === 'Admin'"
+     :selected="selectedRecord"
+     @updated="onRecordUpdated">
+     </update-record>
+     <hr />
+     <search-records @search="searchRecords"></search-records>
+     <hr />
+     <record-list
+     :records="records"
+     :is-admin="!!userInfo && userInfo.role === 'Admin'"
+     @deleted="onRecordDeleted"
+     @edit="onRecordEdit">
+     </record-list>
     </div>
 
     <!-- Import App -->
@@ -31,6 +43,8 @@
     <script src="./components/RecordList.js"></script>
     <script src="./components/LoginForm.js"></script>
     <script src="./components/UserBar.js"></script>
+    <script src="./components/AddRecord.js"></script>
+    <script src="./components/UpdateRecord.js"></script>
 
     <!-- Mount App -->
     <script>

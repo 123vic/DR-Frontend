@@ -1,13 +1,23 @@
 app.component('record-list', {
   props: {
-    records: {
-      type: Array,
-      required: true
-    }
+    records: { type: Array, required: true },
+    isAdmin: { type: Boolean, default: false }
   },
+  emits: ['deleted', 'edit'],
   data() {
     return {
       showRecords: false
+    }
+  },
+  methods: {
+    deleteRecord(id) {
+      axios.delete('https://localhost:7233/api/MusicRecords/' + id)
+        .then(() => {
+          this.$emit('deleted', id)
+        })
+        .catch(error => {
+          console.error('Failed to delete record:', error)
+        })
     }
   },
   template:
@@ -21,6 +31,10 @@ app.component('record-list', {
       <ul>
         <li v-for="record in records" :key="record.id">
           {{ record.title }} by {{ record.artist }} ({{ record.publicationYear }}) - {{ record.duration }} sec
+          <span v-if="isAdmin">
+            <button :id="'edit-' + record.id" @click="$emit('edit', record)">Edit</button>
+            <button :id="'delete-' + record.id" @click="deleteRecord(record.id)">Delete</button>
+          </span>
         </li>
       </ul>
     </div>
